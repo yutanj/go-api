@@ -18,7 +18,7 @@ type Todo struct {
 func dbInit() {
 	db, err := gorm.Open("sqlite3", "test.sqlite3")
 	if err != nil {
-		panic("データベース開けず！（dbInit）")
+		panic("データベース開けず（dbInit）")
 	}
 	db.AutoMigrate(&Todo{})
 	defer db.Close()
@@ -28,7 +28,7 @@ func dbInit() {
 func dbInsert(text string, status string) {
 	db, err := gorm.Open("sqlite3", "test.sqlite3")
 	if err != nil {
-		panic("データベース開けず！（dbInsert)")
+		panic("データベース開けず（dbInsert)")
 	}
 	db.Create(&Todo{Text: text, Status: status})
 	defer db.Close()
