@@ -224,29 +224,57 @@
 // */
 // }
 
+// package main
+
+// import (
+//     "fmt"
+//     "log"
+//     "net/http"
+// )
+
+// type dollars float32
+
+// func (d dollars) String() string {
+//     return fmt.Sprintf("$%.2f", d)
+// }
+
+// type database map[string]dollars
+
+// func (db database) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+//     for item, price := range db {
+//         fmt.Fprintf(w, "%s: %s\n", item, price)
+//     }
+// }
+
+// func main() {
+//     db := database{"Go T-Shirt": 25, "Go Jacket": 55}
+//     log.Fatal(http.ListenAndServe("localhost:8000", db))
+// }
+
 package main
 
 import (
     "fmt"
-    "log"
-    "net/http"
+    "store"
+    "github.com/yutanj/go_practice/calculator"
 )
 
-type dollars float32
-
-func (d dollars) String() string {
-    return fmt.Sprintf("$%.2f", d)
-}
-
-type database map[string]dollars
-
-func (db database) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-    for item, price := range db {
-        fmt.Fprintf(w, "%s: %s\n", item, price)
-    }
-}
-
 func main() {
-    db := database{"Go T-Shirt": 25, "Go Jacket": 55}
-    log.Fatal(http.ListenAndServe("localhost:8000", db))
+    bruce, _ := store.CreateEmployee("Bruce", "Lee", 500)
+    fmt.Println(bruce.CheckCredits())
+    credits, err := bruce.AddCredits(250)
+    if err != nil {
+        fmt.Println("Error:", err)
+    } else {
+        fmt.Println("New Credits Balance = ", credits)
+    }
+
+    _, err = bruce.RemoveCredits(2500)
+    if err != nil {
+        fmt.Println("Can't withdraw or overdrawn!", err)
+    }
+
+    bruce.ChangeName("Mark")
+
+    fmt.Println(bruce)
 }
