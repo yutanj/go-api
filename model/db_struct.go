@@ -2,8 +2,8 @@ package model
 
 type MenuAllergen struct {
 	MenuId int
-	MenuName int
-	RestaurantId string
+	MenuName string
+	RestaurantId int
 	Crab int 
     Shrimp int 
 	Egg int
